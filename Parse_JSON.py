@@ -35,4 +35,6 @@ request_headers = {
 # Return the json format for the page
 json_info = requests.get(product_page, headers=request_headers)
 
+
+
 pprint.pprint(json_info)
