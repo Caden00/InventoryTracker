@@ -35,6 +35,11 @@ request_headers = {
 # Return the json format for the page
 json_info = requests.get(product_page, headers=request_headers)
 
-
-
+# Return request status
 pprint.pprint(json_info)
+
+raw_json = str(json_info.content)
+
+formatted_json = raw_json.replace('(b\'', ' ')
+
+pprint.pprint(formatted_json)
