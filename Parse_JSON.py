@@ -1,16 +1,12 @@
-# This will handle parsing and returning useable json data.
-
+# This will handle parsing page data
 import requests
 import pprint
-import json
-import selenium
-import pyppeteer
-
-from selenium import webdriver
+from bs4 import BeautifulSoup
 
 # Variables / Constants
 
-product_page = 'https://www.bestbuy.com/site/playstation-5/ps5-consoles/pcmcat1587395025973.c?id=pcmcat1587395025973'
+product_page = 'https://www.bestbuy.com/site/apple-20w-usb-c-power-adapter-white/6437121.p?skuId=6437121'
+a = 'https://www.bestbuy.com/site/sony-playstation-5-console/6426149.p?skuId=6426149'
 
 request_headers = {
     'authority': 'www.bestbuy.com',
@@ -25,21 +21,22 @@ request_headers = {
     'accept-language': 'en-US,en;q=0.9'
 }
 
-# Chromium Driver
-# I am using this to test the links being created from parsing
-# driver = webdriver.Chrome('/Users/cadenaragon/Documents/GitHub/InventoryTracker/chromedriver')
-
-# opening up the main page for the PS5
-# driver.get(product_page)
-
 # Return the json format for the page
-json_info = requests.get(product_page, headers=request_headers)
+page_request = requests.get(product_page, headers=request_headers)
 
 # Return request status
-pprint.pprint(json_info)
+print(page_request.status_code)
 
-raw_json = str(json_info.content)
+parse_html = BeautifulSoup(page_request.content, 'html.parser')
 
-formatted_json = raw_json.replace('(b\'', ' ')
+check_add_to_cart = parse_html.find("div", {"class": "fulfillment-add-to-cart-button"})
 
-pprint.pprint(formatted_json)
+button = parse_html.find('button', {'class': 'btn btn-primary btn-lg btn-block btn-leading-ficon add-to-cart-button'})
+
+if button is not None:
+    print('Item is in stock')
+
+
+
+
+
