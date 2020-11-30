@@ -21,21 +21,43 @@ request_headers = {
     'accept-language': 'en-US,en;q=0.9'
 }
 
-# Return the json format for the page
-page_request = requests.get(product_page, headers=request_headers)
+class Check_Stock:
+    # Constructor
+    def __init__(self, product_page, headers):
+        self.product_page = product_page
+        self.headers = headers
+        # Constant request page
+        self.page_request = requests.get(product_page, headers=request_headers)
 
-# Return request status
-print(page_request.status_code)
 
-parse_html = BeautifulSoup(page_request.content, 'html.parser')
+    # Get the page request status (Should be 200)
+    def request_status(self):
+        print(self.page_request.status_code)
+        return self.page_request.status_code
 
-check_add_to_cart = parse_html.find("div", {"class": "fulfillment-add-to-cart-button"})
+    # Will check for item availability
+    def stock(self):
+        # Get the html code
+        parse_html = BeautifulSoup(self.page_request.content, 'html.parser')
+        # Check the button for adding to cart
+        button = parse_html.find('button', {'class': 'btn btn-primary btn-lg btn-block btn-leading-ficon add-to-cart-button'})
+        # Return true or false based on stock
+        if button is not None:
+            print('Item is in stock')
+            return True
+        else:
+            print('Out of Stock')
+            return False
 
-button = parse_html.find('button', {'class': 'btn btn-primary btn-lg btn-block btn-leading-ficon add-to-cart-button'})
 
-if button is not None:
-    print('Item is in stock')
+# Create an object
+monitor = Check_Stock(product_page, request_headers)
 
+# Check status
+monitor.request_status()
+
+# See if in stock
+monitor.stock()
 
 
 
