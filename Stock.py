@@ -2,10 +2,11 @@
 import requests
 import pprint
 from bs4 import BeautifulSoup
+import time
 
 # Variables / Constants
 
-product_page = 'https://www.bestbuy.com/site/apple-20w-usb-c-power-adapter-white/6437121.p?skuId=6437121'
+product_page = 'https://www.bestbuy.com/site/nvidia-geforce-rtx-3080-10gb-gddr6x-pci-express-4-0-graphics-card-titanium-and-black/6429440.p?skuId=6429440'
 a = 'https://www.bestbuy.com/site/sony-playstation-5-console/6426149.p?skuId=6426149'
 
 request_headers = {
@@ -32,7 +33,6 @@ class Check_Stock:
 
     # Get the page request status (Should be 200)
     def request_status(self):
-        print(self.page_request.status_code)
         return self.page_request.status_code
 
     # Will check for item availability
@@ -53,11 +53,14 @@ class Check_Stock:
 # Create an object
 monitor = Check_Stock(product_page, request_headers)
 
-# Check status
-monitor.request_status()
+while not monitor.stock():
+    # Check status
+    print(monitor.request_status())
 
-# See if in stock
-monitor.stock()
+    # See if in stock
+    monitor.stock()
+
+    time.sleep(10)
 
 
 

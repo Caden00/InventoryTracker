@@ -1,5 +1,4 @@
 
-
 request_headers = {
     'authority': 'www.bestbuy.com',
     'pragma': 'no-cache',
