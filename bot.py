@@ -123,7 +123,7 @@ async def notify(ctx):
 async def stop_notify(ctx):
     # Check if the channel is in the notify list in the first place
     if ctx.channel.id in notify_channels:
-        del notify_channels[ctx.channel.id]
+        notify_channels.remove(ctx.channel.id)
 
         # After appropriate things are removed, save channels and inform the user of completion
         save_channels()
