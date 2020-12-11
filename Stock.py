@@ -43,25 +43,8 @@ class Check_Stock:
         button = parse_html.find('button', {'class': 'btn btn-primary btn-lg btn-block btn-leading-ficon add-to-cart-button'})
         # Return true or false based on stock
         if button is not None:
-            print('Item is in stock')
+            # print('Item is in stock')
             return True
         else:
-            print('Out of Stock')
+            # print('Out of Stock')
             return False
-
-
-# Create an object
-monitor = Check_Stock(product_page, request_headers)
-
-while not monitor.stock():
-    # Check status
-    print(monitor.request_status())
-
-    # See if in stock
-    monitor.stock()
-
-    time.sleep(10)
-
-
-
-
