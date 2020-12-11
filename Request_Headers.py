@@ -1,5 +1,5 @@
 
-request_headers = {
+headers = {
     'authority': 'www.bestbuy.com',
     'pragma': 'no-cache',
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36' \

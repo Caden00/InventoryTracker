@@ -1,5 +1,6 @@
 # This will handle parsing page data
 import requests
+import Request_Headers
 import pprint
 from bs4 import BeautifulSoup
 import time
@@ -9,18 +10,7 @@ import time
 product_page = 'https://www.bestbuy.com/site/nvidia-geforce-rtx-3080-10gb-gddr6x-pci-express-4-0-graphics-card-titanium-and-black/6429440.p?skuId=6429440'
 a = 'https://www.bestbuy.com/site/sony-playstation-5-console/6426149.p?skuId=6426149'
 
-request_headers = {
-    'authority': 'www.bestbuy.com',
-    'pragma': 'no-cache',
-    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36' \
-                  ' (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36',
-    'accept': '*/*',
-    'sec-fetch-site': 'same-orgin',
-    'sec-fetch-mode': 'cors',
-    'sec-fetch-dest': 'empty',
-    'referer': 'https://www.bestbuy.com/site/apple-3-3-usb-type-a-to-lightning-charging-cable-white/6259806.p?skuId=6259806',
-    'accept-language': 'en-US,en;q=0.9'
-}
+request_headers = Request_Headers.headers
 
 class Check_Stock:
     # Constructor

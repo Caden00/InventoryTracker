@@ -3,6 +3,7 @@
 import asyncio
 import json
 import os
+import Request_Headers
 import Stock
 import threading
 
@@ -54,7 +55,7 @@ async def on_ready():
 # Once they do become available, send a message in designated channels
 # Designated channels are declared using a command created below
 async def check_for_stock():
-    stock_check = Stock.Check_Stock(Stock.product_page, Stock.request_headers)
+    stock_check = Stock.Check_Stock(Stock.product_page, Request_Headers.headers)
     stock_cache = False
     current_stock = stock_check.stock()
 
@@ -98,7 +99,7 @@ async def ping(ctx):
 # Will send a message depending on whether or not the product is in stock.
 @bot.command(name='stock', help='Responds with whether the products are in stock or not')
 async def stock(ctx):
-    stock_check = Stock.Check_Stock(Stock.product_page, Stock.request_headers)
+    stock_check = Stock.Check_Stock(Stock.product_page, Request_Headers.headers)
     if stock_check.stock():
         await ctx.send('Products are in stock.')
     else:
